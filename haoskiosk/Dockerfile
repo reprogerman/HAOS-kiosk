@@ -47,6 +47,7 @@ RUN apk update && apk add --no-cache \
 ### Linux utils
      bash \
      util-linux \
+     iproute2 \
      patch \
      scrot \
 ### Full Timezone info
