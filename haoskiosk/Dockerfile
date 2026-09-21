@@ -6,8 +6,7 @@
 # Date: February 2026
 ################################################################################
 
-ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM ghcr.io/home-assistant/amd64-base:3.21
 
 ARG BUILD_VERSION
 ENV ADDON_VERSION=${BUILD_VERSION}
@@ -53,18 +52,17 @@ RUN apk update && apk add --no-cache \
 ### Full Timezone info
      icu-data-full \
 ### Python libraries
-    py3-pip \
-    py3-xlib \
+     py3-pip \
+     py3-xlib \
 ### Sound
      pulseaudio-utils \
 #     alsa-utils alsa-plugins-pulse \
 ### Video
 #     gstreamer-tools \
 #     gst-libav \
-### VNC (for debugging) - run: x11vnc -display :0 -forever & \
-      x11vnc \
+### VNC
+     x11vnc \
 # Browser
-#    luakit \
    && apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/v3.21/community \
       chromium \
       font-noto \
@@ -88,7 +86,8 @@ RUN chmod a+x /run.sh
 COPY mouse_touch_inputs.py gesture_commands.json /
 COPY rest_server.py /
 COPY browser_ctl.py chromium_watchdog.py /
-RUN pip install --no-cache-dir  --break-system-packages aiohttp #Required for rest_server.py
+
+RUN pip install --no-cache-dir --break-system-packages aiohttp
 
 #### Patches
 # Need to patch 'unique_instance.lua' so that new instance urls overwrite active url rather than add new tab
