@@ -47,13 +47,14 @@ RUN apk update && apk add --no-cache \
 ### Linux utils
      bash \
      util-linux \
+     iproute2 \
      patch \
      scrot \
 ### Full Timezone info
      icu-data-full \
 ### Python libraries
-    py3-pip \
-    py3-xlib \
+     py3-pip \
+     py3-xlib \
 ### Sound
      pulseaudio-utils \
 #     alsa-utils alsa-plugins-pulse \
@@ -61,7 +62,7 @@ RUN apk update && apk add --no-cache \
 #     gstreamer-tools \
 #     gst-libav \
 ### VNC (for debugging) - run: x11vnc -display :0 -forever & \
-      x11vnc \
+     x11vnc \
 # Browser
 #    luakit \
    && apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/v3.21/community \
@@ -87,7 +88,7 @@ RUN chmod a+x /run.sh
 COPY mouse_touch_inputs.py gesture_commands.json /
 COPY rest_server.py /
 COPY browser_ctl.py chromium_watchdog.py /
-RUN pip install --no-cache-dir  --break-system-packages aiohttp #Required for rest_server.py
+RUN pip install --no-cache-dir --break-system-packages aiohttp
 
 #### Patches
 # Need to patch 'unique_instance.lua' so that new instance urls overwrite active url rather than add new tab
